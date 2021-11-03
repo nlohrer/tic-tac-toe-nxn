@@ -13,7 +13,7 @@ public class Main {
         TttGrid grid = new TttGrid(n);
 
         while (true) {
-            System.out.println(grid.toString());
+            System.out.println("\n" + grid.toString() + "\n");
             System.out.println(grid.getCurrentSymbol() + "'s turn");
 
             System.out.println("Which row? (input q quits)");

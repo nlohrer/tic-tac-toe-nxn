@@ -7,15 +7,31 @@ public class TttGrid {
         String[][] grid = new String[size][size];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) {
-                grid[i][j] = "E";
+                grid[i][j] = "e";
             }
         }
         this.grid = grid;
-        this.currentSymbol = "X";      //x gets the first turn
+        this.currentSymbol = "x";      //x gets the first turn
     }
 
-    public void fillCell(int i, int j) {
+    public void fillCell(int i, int j) {        //fill cell at specified position with current symbol
+
+        if (i < 0 || j < 0 || i > this.grid.length - 1 || j > this.grid.length - 1) {       //check whether the specified cell exists within the grid
+            System.out.println("Out of bounds!");
+            return;
+        }
+
+        if (!this.grid[i][j].equals("e")) {         //check whether the cell is still empty
+            System.out.println("Cell has already been filled!");
+            return;
+        }
         this.grid[i][j] = this.currentSymbol;
+
+        if (this.currentSymbol.equals("x")) {    //switch turn
+            this.currentSymbol = ("o");
+        } else {
+            this.currentSymbol = "x";
+        }
     }
 
     public String getCurrentSymbol() {
