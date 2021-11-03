@@ -11,7 +11,30 @@ public class Main {
         int n = Integer.valueOf(scanner.nextLine());
 
         TttGrid grid = new TttGrid(n);
-        System.out.println(grid.toString());
+
+        while (true) {
+            System.out.println(grid.toString());
+            System.out.println(grid.getCurrentSymbol() + "'s turn");
+
+            System.out.println("Which row? (input q quits)");
+            String row = scanner.nextLine();
+            if (row.equals("q")) {
+                break;
+            }
+            System.out.println("Which column? (input q quits)");
+            String column = scanner.nextLine();
+            if (column.equals("q")) {
+                break;
+            }
+
+            int i = Integer.valueOf(row) - 1;
+            int j = Integer.valueOf(column) - 1;
+            grid.fillCell(i, j);
+
+
+        }
+
+        System.out.println("Thank you for playing!");
 
     }
 }

@@ -1,8 +1,25 @@
 public class TttGrid {
-    private int[][] grid;
+
+    private String[][] grid;
+    private String currentSymbol;      //this is either x or o
 
     public TttGrid(int size) {                  //initializes a grid of size n x n; doesn't work for n <= 0
-        this.grid = new int[size][size];
+        String[][] grid = new String[size][size];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                grid[i][j] = "E";
+            }
+        }
+        this.grid = grid;
+        this.currentSymbol = "X";      //x gets the first turn
+    }
+
+    public void fillCell(int i, int j) {
+        this.grid[i][j] = this.currentSymbol;
+    }
+
+    public String getCurrentSymbol() {
+        return this.currentSymbol;
     }
 
     @Override
