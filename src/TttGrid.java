@@ -3,6 +3,11 @@ public class TttGrid {
     private String[][] grid;
     private String currentSymbol;      //this is either x or o
 
+    private int[] filledRows;               //these arrays/ints indicate how many cells in a given row, column,
+    private int[] filledColumns;            //or diagonal have been filled already. Once any entry reaches n,
+    private int filledDiagonalFalling;      //the program will check whether all symbols within the row, column,
+    private int filledDiagonalRising;       //or diagonal are the same
+
     public TttGrid(int size) {                  //initializes a grid of size n x n; doesn't work for n <= 0
         String[][] grid = new String[size][size];
         for (int i = 0; i < grid.length; i++) {
@@ -27,11 +32,19 @@ public class TttGrid {
         }
         this.grid[i][j] = this.currentSymbol;
 
+        if (hasWon(i, j)) {
+            System.out.println(this.currentSymbol + " has won!");
+        }
+
         if (this.currentSymbol.equals("x")) {    //switch turn
             this.currentSymbol = ("o");
         } else {
             this.currentSymbol = "x";
         }
+    }
+
+    public boolean hasWon(int i, int j) {
+        return false; //functionality to fill the "filled" arrays and determine whether someone has won
     }
 
     public String getCurrentSymbol() {
