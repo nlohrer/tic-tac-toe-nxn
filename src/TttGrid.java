@@ -58,7 +58,7 @@ public class TttGrid {
             hasWon = true;
             String potentialWinner = this.grid[i][1];
             for (String rowEntry : this.grid[i]) {      //goes through all entries in the given row/column/diagonal and checks whether they are all equal;
-                if (rowEntry != potentialWinner) {
+                if (!rowEntry.equals(potentialWinner)) {
                     hasWon = false;
                     break;
                 }
@@ -72,7 +72,7 @@ public class TttGrid {
             hasWon = true;
             String potentialWinner = this.grid[1][j];
             for (int row = 0; row < this.grid.length; row++) {
-                if (this.grid[row][j] != potentialWinner) {
+                if (!this.grid[row][j].equals(potentialWinner)) {
                     hasWon = false;
                     break;
                 }
@@ -84,11 +84,38 @@ public class TttGrid {
 
         if (i == j) {
             this.filledDiagonalFalling++;
+            if (this.filledDiagonalFalling == this.grid.length) {
+                hasWon = true;
+                String potentialWinner = this.grid[1][1];
+                for (int index = 0; index < this.grid.length; index++) {
+                    if (!this.grid[index][index].equals(potentialWinner)) {
+                        hasWon = false;
+                        break;
+                    }
+                }
+                if (hasWon) {
+                    return true;
+                }
+            }
         }
-        if (i + j == this.grid.length + 1) {
+        if (i + j == this.grid.length - 1) {
             this.filledDiagonalRising++;
+            if (this.filledDiagonalRising == this.grid.length) {
+                hasWon = true;
+                String potentialWinner = this.grid[0][this.grid.length - 1];
+                for (int index = 0; index < this.grid.length; index++) {
+                    int columnIndex = this.grid.length - (index + 1);
+                    if (!this.grid[index][columnIndex].equals(potentialWinner)) {
+                        hasWon = false;
+                        break;
+                    }
+                }
+                if (hasWon) {
+                    return true;
+                }
+            }
         }
-        return hasWon; //functionality to fill the "filled" arrays and determine whether someone has won
+        return false; //functionality to fill the "filled" arrays and determine whether someone has won
     }
 
     public String getCurrentSymbol() {
