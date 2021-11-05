@@ -56,7 +56,7 @@ public class TttGrid {
         this.filledRows[i]++;           //increases the amount of filled cells within the given row, column, and diagonal (if applicable) by 1
         if (this.filledRows[i] == this.grid.length) {       //checks whether all cells in a given row, column, or diagonal have been filled. If so, this will return true;
             hasWon = true;
-            String potentialWinner = this.grid[i][1];
+            String potentialWinner = this.grid[i][0];
             for (String rowEntry : this.grid[i]) {      //goes through all entries in the given row/column/diagonal and checks whether they are all equal;
                 if (!rowEntry.equals(potentialWinner)) {
                     hasWon = false;
@@ -70,7 +70,7 @@ public class TttGrid {
         this.filledColumns[j]++;
         if (this.filledColumns[j] == this.grid.length) {        //this will definitely need to be refactored at some point...
             hasWon = true;
-            String potentialWinner = this.grid[1][j];
+            String potentialWinner = this.grid[0][j];
             for (int row = 0; row < this.grid.length; row++) {
                 if (!this.grid[row][j].equals(potentialWinner)) {
                     hasWon = false;
@@ -86,7 +86,7 @@ public class TttGrid {
             this.filledDiagonalFalling++;
             if (this.filledDiagonalFalling == this.grid.length) {
                 hasWon = true;
-                String potentialWinner = this.grid[1][1];
+                String potentialWinner = this.grid[0][0];
                 for (int index = 0; index < this.grid.length; index++) {
                     if (!this.grid[index][index].equals(potentialWinner)) {
                         hasWon = false;
