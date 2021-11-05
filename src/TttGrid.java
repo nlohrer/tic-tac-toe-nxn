@@ -16,24 +16,30 @@ public class TttGrid {
             }
         }
         this.grid = grid;
+
+        this.filledRows = new int[size];
+        this.filledColumns = new int[size];
+        this.filledDiagonalFalling = 0;
+        this.filledDiagonalRising = 0;
+
         this.currentSymbol = "x";      //x gets the first turn
     }
 
-    public void fillCell(int i, int j) {        //fill cell at specified position with current symbol
+    public boolean fillCell(int i, int j) {        //fill cell at specified position with current symbol, returns true if the game has reached a winning state thereafter
 
         if (i < 0 || j < 0 || i > this.grid.length - 1 || j > this.grid.length - 1) {       //check whether the specified cell exists within the grid
             System.out.println("Out of bounds!");
-            return;
+            return false;
         }
 
         if (!this.grid[i][j].equals("e")) {         //check whether the cell is still empty
             System.out.println("Cell has already been filled!");
-            return;
+            return false;
         }
         this.grid[i][j] = this.currentSymbol;
 
         if (hasWon(i, j)) {
-            System.out.println(this.currentSymbol + " has won!");
+            return true;
         }
 
         if (this.currentSymbol.equals("x")) {    //switch turn
@@ -41,10 +47,48 @@ public class TttGrid {
         } else {
             this.currentSymbol = "x";
         }
+
+        return false;
     }
 
     public boolean hasWon(int i, int j) {
-        return false; //functionality to fill the "filled" arrays and determine whether someone has won
+        boolean hasWon = false;
+        this.filledRows[i]++;           //increases the amount of filled cells within the given row, column, and diagonal (if applicable) by 1
+        if (this.filledRows[i] == this.grid.length) {       //checks whether all cells in a given row, column, or diagonal have been filled. If so, this will return true;
+            hasWon = true;
+            String potentialWinner = this.grid[i][1];
+            for (String rowEntry : this.grid[i]) {      //goes through all entries in the given row/column/diagonal and checks whether they are all equal;
+                if (rowEntry != potentialWinner) {
+                    hasWon = false;
+                    break;
+                }
+            }
+            if (hasWon) {
+                return true;
+            }
+        }
+        this.filledColumns[j]++;
+        if (this.filledColumns[j] == this.grid.length) {        //this will definitely need to be refactored at some point...
+            hasWon = true;
+            String potentialWinner = this.grid[1][j];
+            for (int row = 0; row < this.grid.length; row++) {
+                if (this.grid[row][j] != potentialWinner) {
+                    hasWon = false;
+                    break;
+                }
+            }
+            if (hasWon) {
+                return true;
+            }
+        }
+
+        if (i == j) {
+            this.filledDiagonalFalling++;
+        }
+        if (i + j == this.grid.length + 1) {
+            this.filledDiagonalRising++;
+        }
+        return hasWon; //functionality to fill the "filled" arrays and determine whether someone has won
     }
 
     public String getCurrentSymbol() {

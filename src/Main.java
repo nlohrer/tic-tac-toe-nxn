@@ -29,7 +29,10 @@ public class Main {
 
             int i = Integer.valueOf(row) - 1;
             int j = Integer.valueOf(column) - 1;
-            grid.fillCell(i, j);
+            if (grid.fillCell(i, j)) {            //1 is subtracted from both the cow and the column value to make it easier to work with arrays
+                System.out.println(grid.getCurrentSymbol() + " has won!");
+                break;
+            }
 
 
         }
