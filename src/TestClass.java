@@ -3,8 +3,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class TestClass {
@@ -122,5 +121,18 @@ class TestClass {
         grid.fillCell(1,1);
         grid.fillCell(1,0);
         assertTrue(grid.fillCell(0,2));
+    }
+
+    @Test
+    void noOneWinsWhenGameHasReachedAnUnwinnableState() {
+        grid.fillCell(0, 0);
+        grid.fillCell(1,1);
+        assertFalse(grid.fillCell(2,2));
+        assertFalse(grid.fillCell(0,2));
+        assertFalse(grid.fillCell(0,1));
+        assertFalse(grid.fillCell(2,1));
+        assertFalse(grid.fillCell(2,0));
+        assertFalse(grid.fillCell(1,0));
+        assertFalse(grid.fillCell(1,2));
     }
 }
