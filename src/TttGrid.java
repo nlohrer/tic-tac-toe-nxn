@@ -42,11 +42,7 @@ public class TttGrid {
             return true;
         }
 
-        if (this.currentSymbol.equals("x")) {    //switch turn
-            this.currentSymbol = ("o");
-        } else {
-            this.currentSymbol = "x";
-        }
+        this.changeSymbol();
 
         return false;
     }
@@ -120,6 +116,14 @@ public class TttGrid {
 
     public String getCurrentSymbol() {
         return this.currentSymbol;
+    }
+
+    public void changeSymbol() {
+        if (currentSymbol.equals("x")) {
+            currentSymbol = "o";
+        } else {
+            currentSymbol = "x";
+        }
     }
 
     @Override
