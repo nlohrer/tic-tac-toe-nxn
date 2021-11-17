@@ -57,4 +57,59 @@ class TestClass {
         String newState = grid.toString();
         assertEquals(expectedState, newState);
     }
+
+    @Test
+    void winHorizontally() {
+        boolean check = false;
+        for (int i = 0; i < 3; i++) {
+            TttGrid testGrid = new TttGrid(3);
+            check = false;
+            for (int j = 0; j < 3; j++) {
+                check = testGrid.fillCell(i, j);
+                testGrid.fillCell((i + 1) % 2, j);
+            }
+            if (!check) {
+                assertTrue(check);
+            }
+        }
+        assertTrue(check);
+    }
+
+
+    @Test
+    void winVertically() {
+        boolean check = false;
+        for (int i = 0; i < 3; i++) {
+            TttGrid testGrid = new TttGrid(3);
+            check = false;
+            for (int j = 0; j < 3; j++) {
+                check = testGrid.fillCell(j, i);
+                testGrid.fillCell(j, (i + 1) % 2);
+            }
+            if (!check) {
+                assertTrue(check);
+            }
+        }
+        assertTrue(check);
+    }
+
+    @Test
+    void winFallingDiagonally() {
+        grid.fillCell(1,0);
+        grid.fillCell(0,0);
+        grid.fillCell(1,2);
+        grid.fillCell(1,1);
+        grid.fillCell(0, 1);
+        assertTrue(grid.fillCell(2,2));
+    }
+
+    @Test
+    void winRisingDiagonally() {
+        grid.fillCell(0,0);
+        grid.fillCell(2,0);
+        grid.fillCell(2,2);
+        grid.fillCell(1,1);
+        grid.fillCell(1,0);
+        assertTrue(grid.fillCell(0,2));
+    }
 }
