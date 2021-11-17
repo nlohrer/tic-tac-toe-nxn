@@ -49,7 +49,6 @@ public class TttGrid {
 
 
     public boolean hasWon(int i, int j) {   //method to fill the "filled" arrays and determine whether someone has won
-        boolean hasWon = false;
         this.filledRows[i]++;           //increases the amount of filled cells within the given row, column, and diagonal (if applicable) by 1
         if (this.filledRows[i] == this.grid.length && checkRowForWinner(i)) {       //checks whether all cells in a given row, column, or diagonal have been filled. If so, this will return true;
             return true;
