@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -14,7 +15,17 @@ class TestClass {
     @BeforeEach
     void setup() {
         grid = new TttGrid(3);
-        startingState = grid.toString();
+        startingState = "e | e | e\n" +
+                        "- - - - -\n" +
+                        "e | e | e\n" +
+                        "- - - - -\n" +
+                        "e | e | e";
+    }
+
+    @Test
+    void initialGridIsEqualTo_startingState() {
+        String initialGrid = grid.toString();
+        assertEquals(startingState, initialGrid);
     }
 
     @Test
@@ -30,5 +41,14 @@ class TestClass {
 
         String newState = grid.toString();
         assertTrue(startingState.equals(newState));
+    }
+
+    @Test
+    void cannotOverwriteFilledCells() {
+        grid.fillCell(1, 1);
+        String filledState = grid.toString();
+        grid.fillCell(1,1);
+        String newState = grid.toString();
+        assertTrue(filledState.equals(newState));
     }
 }
