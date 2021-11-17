@@ -44,6 +44,23 @@ class TestClass {
     }
 
     @Test
+    void currentSymbolChangesOnlyAfterValidInput() {
+        assertEquals(grid.getCurrentSymbol(), "x");
+        grid.fillCell(1,1);
+        assertEquals(grid.getCurrentSymbol(), "o");
+        grid.fillCell(0,0);
+        assertEquals(grid.getCurrentSymbol(), "x");
+        grid.fillCell(1,0);
+        assertEquals(grid.getCurrentSymbol(), "o");
+        grid.fillCell(1,1);
+        assertEquals(grid.getCurrentSymbol(), "o");
+        grid.fillCell(0,0);
+        assertEquals(grid.getCurrentSymbol(), "o");
+        grid.fillCell(2,2);
+        assertEquals(grid.getCurrentSymbol(), "x");
+    }
+
+    @Test
     void cannotOverwriteFilledCells() {
         grid.fillCell(1, 1);
         String filledState = grid.toString();
@@ -68,11 +85,8 @@ class TestClass {
                 check = testGrid.fillCell(i, j);
                 testGrid.fillCell((i + 1) % 2, j);
             }
-            if (!check) {
-                assertTrue(check);
-            }
+            assertTrue(check);
         }
-        assertTrue(check);
     }
 
 
@@ -86,11 +100,8 @@ class TestClass {
                 check = testGrid.fillCell(j, i);
                 testGrid.fillCell(j, (i + 1) % 2);
             }
-            if (!check) {
-                assertTrue(check);
-            }
+            assertTrue(check);
         }
-        assertTrue(check);
     }
 
     @Test
