@@ -47,72 +47,74 @@ public class TttGrid {
         return false;
     }
 
-    public boolean hasWon(int i, int j) {   //functionality to fill the "filled" arrays and determine whether someone has won
+
+    public boolean hasWon(int i, int j) {   //method to fill the "filled" arrays and determine whether someone has won
         boolean hasWon = false;
         this.filledRows[i]++;           //increases the amount of filled cells within the given row, column, and diagonal (if applicable) by 1
-        if (this.filledRows[i] == this.grid.length) {       //checks whether all cells in a given row, column, or diagonal have been filled. If so, this will return true;
-            hasWon = true;
-            String potentialWinner = this.grid[i][0];
-            for (String rowEntry : this.grid[i]) {      //goes through all entries in the given row/column/diagonal and checks whether they are all equal;
-                if (!rowEntry.equals(potentialWinner)) {
-                    hasWon = false;
-                    break;
-                }
-            }
-            if (hasWon) {
-                return true;
-            }
+        if (this.filledRows[i] == this.grid.length && checkRowForWinner(i)) {       //checks whether all cells in a given row, column, or diagonal have been filled. If so, this will return true;
+            return true;
         }
         this.filledColumns[j]++;
-        if (this.filledColumns[j] == this.grid.length) {        //this will definitely need to be refactored at some point...
-            hasWon = true;
-            String potentialWinner = this.grid[0][j];
-            for (int row = 0; row < this.grid.length; row++) {
-                if (!this.grid[row][j].equals(potentialWinner)) {
-                    hasWon = false;
-                    break;
-                }
-            }
-            if (hasWon) {
-                return true;
-            }
+        if (this.filledColumns[j] == this.grid.length && checkColumnForWinner(j)) {
+            return true;
         }
 
         if (i == j) {
             this.filledDiagonalFalling++;
-            if (this.filledDiagonalFalling == this.grid.length) {
-                hasWon = true;
-                String potentialWinner = this.grid[0][0];
-                for (int index = 0; index < this.grid.length; index++) {
-                    if (!this.grid[index][index].equals(potentialWinner)) {
-                        hasWon = false;
-                        break;
-                    }
-                }
-                if (hasWon) {
-                    return true;
-                }
+            if (this.filledDiagonalFalling == this.grid.length && checkDiagonalFallingForWinner()) {
+                return true;
             }
         }
         if (i + j == this.grid.length - 1) {
             this.filledDiagonalRising++;
-            if (this.filledDiagonalRising == this.grid.length) {
-                hasWon = true;
-                String potentialWinner = this.grid[0][this.grid.length - 1];
-                for (int index = 0; index < this.grid.length; index++) {
-                    int columnIndex = this.grid.length - (index + 1);
-                    if (!this.grid[index][columnIndex].equals(potentialWinner)) {
-                        hasWon = false;
-                        break;
-                    }
-                }
-                if (hasWon) {
-                    return true;
-                }
+            if (this.filledDiagonalRising == this.grid.length && checkDiagonalRisingForWinner()) {
+                return true;
             }
         }
         return false;
     }
+
+    public boolean checkRowForWinner(int i) {
+        String potentialWinner = this.grid[i][0];
+        for (String rowEntry : this.grid[i]) {      //goes through all entries in the given row and checks whether they are all equal;
+            if (!rowEntry.equals(potentialWinner)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkColumnForWinner(int j) {
+        String potentialWinner = this.grid[0][j];
+        for (int row = 0; row < this.grid.length; row++) {
+            if (!this.grid[row][j].equals(potentialWinner)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkDiagonalFallingForWinner() {
+        String potentialWinner = this.grid[0][0];
+        for (int index = 0; index < this.grid.length; index++) {
+            if (!this.grid[index][index].equals(potentialWinner)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkDiagonalRisingForWinner() {
+        String potentialWinner = this.grid[0][this.grid.length - 1];
+        for (int index = 0; index < this.grid.length; index++) {
+            int columnIndex = this.grid.length - (index + 1);
+            if (!this.grid[index][columnIndex].equals(potentialWinner)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public String getCurrentSymbol() {
         return this.currentSymbol;
