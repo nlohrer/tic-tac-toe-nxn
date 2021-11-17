@@ -135,9 +135,9 @@ public class TttGrid {
             }
             toPrint += this.grid[i][this.grid.length - 1] + "\n";
             for (int k = 1; k <= this.grid.length * 2 - 2; k++) {
-                toPrint += "_ ";
+                toPrint += "- ";
             }
-            toPrint += "_\n";
+            toPrint += "-\n";
         }
 
         for (int j = 0; j <= this.grid.length - 2; j++) {
