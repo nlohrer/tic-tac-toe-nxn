@@ -40,15 +40,21 @@ class TestClass {
         grid.fillCell(5,-2);
 
         String newState = grid.toString();
-        assertTrue(startingState.equals(newState));
+        assertEquals(startingState, newState);
     }
 
     @Test
     void cannotOverwriteFilledCells() {
         grid.fillCell(1, 1);
         String filledState = grid.toString();
+        String expectedState =
+                "e | e | e\n" +
+                "- - - - -\n" +
+                "e | x | e\n" +
+                "- - - - -\n" +
+                "e | e | e";
         grid.fillCell(1,1);
         String newState = grid.toString();
-        assertTrue(filledState.equals(newState));
+        assertEquals(expectedState, newState);
     }
 }
